@@ -26,7 +26,7 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # Наші застосунки додамо сюди по черзі, коли створимо їх у блоках 4–6:
     "users",
-    # "products",
+    "products",
     # "orders",
 
 
