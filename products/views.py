@@ -3,10 +3,20 @@
 from decimal import Decimal, InvalidOperation
 from typing import Any
 
+from django.contrib import messages
+from django.contrib.auth.views import redirect_to_login
+from django.db import IntegrityError, transaction
 from django.db.models import Avg, Count, F, Q, QuerySet
-from django.views.generic import ListView
+from django.http import HttpRequest, HttpResponse
+from django.shortcuts import redirect
+from django.views.generic import DetailView, ListView
+from django.views.generic.edit import FormMixin
 
+from orders.cart import Cart
+
+from .forms import ReviewForm
 from .models import Category, Product
+from .services import user_has_purchased
 
 #: Зіставляє параметр GET `sort` з упорядкуванням ORM.
 SORTS = {
@@ -64,3 +74,46 @@ class ProductListView(ListView):
         context["selected_categories"] = self.request.GET.getlist("category")
         context["current_sort"] = self.request.GET.get("sort", "new")
         return context
+
+class ProductDetailView(FormMixin, DetailView):
+    """Сторінка товару: деталі, відгуки та форма додавання відгуку (POST)."""
+
+    template_name = "products/product_detail.html"
+    context_object_name = "product"
+    form_class = ReviewForm
+
+    def get_queryset(self) -> QuerySet[Product]:
+        return Product.objects.filter(is_active=True).select_related("category")
+
+    def get_context_data(self, **kwargs: Any) -> dict[str, Any]:
+        context = super().get_context_data(**kwargs)
+        product: Product = self.object
+        context["reviews"] = product.reviews.select_related("user")
+        context["can_review"] = (
+            user_has_purchased(self.request.user, product)
+            and not product.reviews.filter(user=self.request.user.pk).exists()
+        )
+        context["in_cart"] = Cart(self.request).quantity_of(product)
+        return context
+
+    def post(self, request: HttpRequest, *args: Any, **kwargs: Any) -> HttpResponse:
+        """Створіть відгук; публікувати можуть лише покупці, один відгук на користувача."""
+        self.object = self.get_object()
+        if not request.user.is_authenticated:
+            return redirect_to_login(request.get_full_path())
+        if not user_has_purchased(request.user, self.object):
+            messages.error(request, "You can review only products you have purchased.")
+            return redirect(self.object.get_absolute_url())
+        form = self.get_form()
+        if form.is_valid():
+            review = form.save(commit=False)
+            review.product = self.object
+            review.user = request.user
+            try:
+                with transaction.atomic():
+                    review.save()
+                messages.success(request, "Thanks for your review!")
+            except IntegrityError:
+                messages.error(request, "You have already reviewed this product.")
+            return redirect(self.object.get_absolute_url())
+        return self.render_to_response(self.get_context_data(form=form))

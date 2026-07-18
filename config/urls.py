@@ -29,6 +29,8 @@ urlpatterns = [
     # path('', RedirectView.as_view(url='/admin/'), name='home'),
     path('', include('products.urls')),
     path('guides/', TemplateView.as_view(template_name='guides.html'), name='guides' ),
+    path('', include('users.urls')),
+    path('', include('orders.urls')),
 
 
 
