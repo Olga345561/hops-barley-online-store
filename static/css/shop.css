@@ -1,0 +1,15 @@
+
+.flash-messages { position: fixed; top: 90px; right: 24px; z-index: 1000;
+    display: flex; flex-direction: column; gap: 8px; }
+.flash-message { padding: 12px 20px; border-radius: 8px; color: #fff;
+    background: #4a5d23; box-shadow: 0 4px 12px rgba(0,0,0,.15);
+    transition: opacity .4s ease; }
+.flash-message--error { background: #a33; }
+.flash-message--hidden { opacity: 0; pointer-events: none; }
+
+.form-errors { color: #a33; font-size: .9rem; margin: 4px 0 8px; }
+.price-filter { display: flex; gap: 8px; align-items: center; margin-top: 8px; }
+.price-filter .Input { width: 90px; }
+.stock-badge { font-size: .85rem; color: #4a5d23; }
+.stock-badge--out { color: #a33; }
+.empty-note { padding: 24px 0; color: #666; }
