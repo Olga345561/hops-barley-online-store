@@ -1,5 +1,7 @@
 from django.http import HttpResponse
 from django.urls import path
+from . import views
+from django.contrib.auth import views as auth_views
 
 from products.urls import app_name
 
@@ -10,7 +12,8 @@ def _placeholder(request, HttRequest) -> HttpResponse:
 
 urlpatterns = [
     path('account/', _placeholder, name='account'),
-    path('account/login', _placeholder, name='login'),
-    path('account/logout', _placeholder, name='logout'),
-    path('account/register', _placeholder, name='register'),
+    path('account/register', views.register, name='register'),
+    path('account/login',views.UserLoginView.as_view(), name='login'),
+    path('account/logout',auth_views.LogoutView.as_view(), name='logout'),
 ]
+
