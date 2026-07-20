@@ -1,0 +1,18 @@
+{% extends "pages/base.html" %}
+{% block title %}Order confirmed — Hop & Barley{% endblock %}
+{% block content %}
+<main class="static-page-wrapper">
+  <div class="container">
+    <div class="static-page-content">
+      <h1 class="static-page-title">Thank you!</h1>
+      <p class="static-page-subtitle">Order #{{ order.pk }} has been placed.</p>
+      <div class="static-page-text">
+        <p>Status: {{ order.get_status_display }} · Total: ${{ order.total_price }}</p>
+        <p>A confirmation email is on its way to {{ order.user.email }}.</p>
+      </div>
+      <a href="{% url 'users:account' %}" class="button button--secondary">My orders</a>
+      <a href="{% url 'home' %}" class="button button--primary">Back to Products</a>
+    </div>
+  </div>
+</main>
+{% endblock %}

@@ -1,17 +1,14 @@
 from django.http import HttpResponse
 from django.urls import path
-
-from products.urls import app_name
+from . import views
 
 app_name = "orders"
 
-def _placeholder(request, HttRequest):
-    return HttpResponse(status=204)
-
-def _placeholder_pk(request, HttRequest):
-    return HttpResponse(status=204)
-
 urlpatterns = [
-    path('cart/', _placeholder, name='cart'),
-    path('cart/add/<int:product_id>/', _placeholder, name='cart_add'),
+    path("cart/", views.cart_detail, name="cart"),
+    path("cart/add/<int:product_id>/", views.cart_add, name="cart_add"),
+    path("cart/update/<int:product_id>/", views.cart_update, name="cart_update"),
+    path("cart/remove/<int:product_id>/", views.cart_remove, name="cart_remove"),
+    path("checkout/",views.checkout, name="checkout"),
+    path("checkout/success/<int:pk>/", views.order_success, name="success"),
 ]
