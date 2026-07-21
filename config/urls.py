@@ -16,25 +16,29 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from django.views.generic import RedirectView, TemplateView
+from django.views.generic import TemplateView
 from django.conf import settings
 from django.conf.urls.static import static
-
+from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from users.api import RegisterAPIView
 
 urlpatterns = [
-
     path('admin/', admin.site.urls),
-
-    # path('', RedirectView.as_view(url='/products/'), name='home'),
-    # path('', RedirectView.as_view(url='/admin/'), name='home'),
     path('', include('products.urls')),
-    path('guides/', TemplateView.as_view(template_name='guides.html'), name='guides' ),
+    path('guides/', TemplateView.as_view(template_name='guides.html'), name='guides'),
     path('', include('users.urls')),
     path('', include('orders.urls')),
+    path('api/schema/', SpectacularAPIView.as_view(), name='api-schema'),
+    path('api/docs/', SpectacularSwaggerView.as_view(url_name='api-schema'), name='api-docs'),
 
-
+    path('api/users/register/', RegisterAPIView.as_view(), name='api-register'),
+    path('api/users/login/', TokenObtainPairView.as_view(), name='api-login'),
+    path('api/users/refresh/', TokenRefreshView.as_view(), name='api-refresh'),
 
 ]
+
+
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
