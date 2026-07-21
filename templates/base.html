@@ -30,7 +30,7 @@
             </nav>
             {% if user.is_authenticated %}
             <div class="header__user-actions" id="auth-user">
-                <a href="#" class="user-icon" aria-label="My Account">
+                <a href="{% url 'users:account' %}" class="user-icon" aria-label="My Account">
                     <img src="{% static 'img/icons/User_alt.svg' %}" alt="User Account">
                 </a>
                 <a href="#" class="cart-icon" aria-label="Shopping Cart">
@@ -39,8 +39,8 @@
             </div>
             {% else %}
             <div class="header__auth-buttons" id="auth-guest">
-                <a href="#" class="button button--secondary">Sign in</a>
-                <a href="#" class="button button--primary">Register</a>
+                <a href="{% url 'users:logFin' %}" class="button button--secondary">Sign in</a>
+                <a href="{% url 'users:register' %}" class="button button--primary">Register</a>
             </div>
             {% endif %}
         </div>

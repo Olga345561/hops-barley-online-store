@@ -1,0 +1,118 @@
+{% extends "base.html" %}
+{% block title %}My Account — Hop & Barley{% endblock %}
+{% block content %}
+<main class="account-page-wrapper">
+    <div class="account-container">
+        <h1>My Account</h1>
+
+        <div class="account-tabs">
+            <button class="account-tab active" data-tab-target="#order-history">Order History</button>
+            <button class="account-tab" data-tab-target="#account-info">Account Information</button>
+            <button class="account-tab" data-tab-target="#password">Password</button>
+        </div>
+
+        <div id="order-history" class="tab-pane active">
+            <div class="category-tags">
+                <a href="{% url 'users:account' %}" class="category-tag {% if not current_status %}active{% endif %}">All</a>
+                {% for value, label in statuses %}
+                <a href="{% querystring status=value page=1 %}" class="category-tag {% if current_status == value %}active{% endif %}">{{ label }}</a>
+                {% endfor %}
+            </div>
+
+            <div class="order-history-table">
+                <div class="order-table-header">
+                    <div class="order-table-cell">Order Details</div>
+                    <div class="order-table-cell">Order Status</div>
+                    <div class="order-table-cell">Total</div>
+                </div>
+                <div class="order-table-body">
+                    {% for order in orders_page %}
+                    <div class="order-table-row">
+                        <div class="order-table-cell">
+                            <span class="order-id">#{{ order.pk }}</span>
+                            <span class="order-date">{{ order.created_at|date:"j M Y" }}</span>
+                        </div>
+                        <div class="order-table-cell">
+                            <span class="order-status">{{ order.get_status_display }}</span>
+                        </div>
+                        <div class="order-table-cell">
+                            <span class="order-total">${{ order.total_price }}</span>
+                        </div>
+                    </div>
+                    {% empty %}
+                    <p class="empty-note">No orders yet. <a href="{% url 'products:home' %}">Start shopping</a>.</p>
+                    {% endfor %}
+                </div>
+            </div>
+
+            {% if orders_page.has_other_pages %}
+            <div class="account-pagination">
+                {% if orders_page.has_previous %}
+                <a href="{% querystring page=orders_page.previous_page_number %}" class="pagination-link-account">&larr; Previous</a>
+                {% endif %}
+                {% if orders_page.has_next %}
+                <a href="{% querystring page=orders_page.next_page_number %}" class="pagination-link-account">Next &rarr;</a>
+                {% endif %}
+            </div>
+            {% endif %}
+        </div>
+
+        <div id="account-info" class="tab-pane">
+            <div class="account-form-container">
+                <h2>Personal Info</h2>
+                <form id="account-info-form" method="post" action="{% url 'users:account' %}">
+                    {% csrf_token %}
+                    <div class="checkout-form-group">
+                        <label for="{{ form.full_name.id_for_label }}">Full Name</label>
+                        {{ form.full_name }}
+                    </div>
+                    <div class="checkout-form-group">
+                        <label for="{{ form.phone.id_for_label }}">Phone number</label>
+                        {{ form.phone }}
+                    </div>
+                    <div class="checkout-form-group">
+                        <label for="{{ form.email.id_for_label }}">Email</label>
+                        {{ form.email }}
+                        {% if form.email.errors %}<div class="form-errors">{{ form.email.errors }}</div>{% endif %}
+                    </div>
+                    <div class="checkout-form-group">
+                        <label for="{{ form.city.id_for_label }}">City</label>
+                        {{ form.city }}
+                    </div>
+                    <div class="checkout-form-group">
+                        <label for="{{ form.address.id_for_label }}">Shipping address</label>
+                        {{ form.address }}
+                    </div>
+                    <button type="submit" class="button button--primary button--full-width">Save</button>
+                </form>
+                <form method="post" action="{% url 'users:logout' %}">
+                    {% csrf_token %}
+                    <button type="submit" class="button button--secondary button--full-width" id="logout-button">Logout</button>
+                </form>
+            </div>
+        </div>
+
+        <div id="password" class="tab-pane">
+            <div class="account-form-container">
+                <h2>Change Password</h2>
+                <form method="post" action="{% url 'users:password_change' %}">
+                    {% csrf_token %}
+                    <div class="checkout-form-group">
+                        <label for="id_old_password">Current password</label>
+                        <input type="password" name="old_password" id="id_old_password" class="Input" required>
+                    </div>
+                    <div class="checkout-form-group">
+                        <label for="id_new_password1">New password</label>
+                        <input type="password" name="new_password1" id="id_new_password1" class="Input" required>
+                    </div>
+                    <div class="checkout-form-group">
+                        <label for="id_new_password2">Confirm new password</label>
+                        <input type="password" name="new_password2" id="id_new_password2" class="Input" required>
+                    </div>
+                    <button type="submit" class="button button--primary button--full-width">Change Password</button>
+                </form>
+            </div>
+        </div>
+    </div>
+</main>
+{% endblock %}
