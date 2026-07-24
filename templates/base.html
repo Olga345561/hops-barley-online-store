@@ -25,7 +25,7 @@
                     <li><a href="{% url 'guides' %}">Guides & Recipes</a></li>
                     <li><a href="#">Community</a></li>
                     <li><a href="#">Resources</a></li>
-                    <li><a href="#">Contact</a></li>
+                    <li><a href="{% url 'contact' %}">Contact</a></li>
                 </ul>
             </nav>
             {% if user.is_authenticated %}
@@ -39,7 +39,7 @@
             </div>
             {% else %}
             <div class="header__auth-buttons" id="auth-guest">
-                <a href="{% url 'users:logFin' %}" class="button button--secondary">Sign in</a>
+                <a href="{% url 'users:login' %}" class="button button--secondary">Sign in</a>
                 <a href="{% url 'users:register' %}" class="button button--primary">Register</a>
             </div>
             {% endif %}

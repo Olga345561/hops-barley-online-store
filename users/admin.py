@@ -6,7 +6,7 @@ from .models import User
 
 @admin.register(User)
 class UserAdmin(DjangoUserAdmin):
-    """Admin for the email-based user model."""
+    """Адміністратор для моделі користувача на основі електронної пошти."""
 
     ordering = ("email",)
     list_display = ("email", "first_name", "last_name", "is_staff", "date_joined")

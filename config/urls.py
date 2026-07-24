@@ -35,6 +35,7 @@ urlpatterns = [
     path('guides/', TemplateView.as_view(template_name='guides.html'), name='guides'),
     path('', include('users.urls')),
     path('', include('orders.urls')),
+    path('', include('contacts.urls')),
     path('api/schema/', SpectacularAPIView.as_view(), name='api-schema'),
     path('api/docs/', SpectacularSwaggerView.as_view(url_name='api-schema'), name='api-docs'),
 

@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Контакти — Hops & Barley{% endblock %}
+
+{% block content %}
+<!-- Підключення окремого файлу стилів спеціально для сторінки контактів -->
+<link rel="stylesheet" href="{% static 'css/contacts.css' %}">
+
+<div class="contacts-page">
+    <header class="contacts-header">
+        <h1>Hops & Barley</h1>
+        <p>Contact us in any convenient way</p>
+    </header>
+
+    <div class="container">
+        <!-- Блок контактної інформації -->
+        <div class="contact-info">
+            <h2>Our coordinates</h2>
+            <div class="info-item">
+                <p><strong>Address:</strong> 12 Pyvna St., Kyiv, Ukraine</p>
+            </div>
+            <div class="info-item">
+                <p><strong>Phone:</strong> <a href="tel:+380991234567" style="color: inherit; text-decoration: none;">+38 (099) 123-45-67</a></p>
+            </div>
+            <div class="info-item">
+                <p><strong>Email:</strong> <a href="mailto:support@hops-barley.com" style="color: inherit; text-decoration: none;">support@hops-barley.com</a></p>
+            </div>
+            <div class="info-item">
+                <p><strong>Working hours:</strong> Mon-Fri: 09:00 – 20:00<br>Sat-Sun: 10:00 – 18:00</p>
+            </div>
+        </div>
+
+        <!-- Форма зворотного зв'язку -->
+        <div class="contact-form">
+            <h2>Write to us</h2>
+            <form action="" method="POST">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="name">Your name</label>
+                    <input type="text" id="name" name="name" required placeholder="Enter your name">
+                </div>
+                <div class="form-group">
+                    <label for="email">E-mail</label>
+                    <input type="email" id="email" name="email" required placeholder="name@example.com">
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" required placeholder="Your question or comment..."></textarea>
+                </div>
+                <button type="submit">Send message</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Карта проїзду -->
+    <div class="map-section">
+        <div class="map-container">
+            <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2540.5764006129424!2d30.521683315731388!3d50.4501,0!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2zNTDCsDI3JzAwLjQiTiAzMMKwMzEnMjguMSJF!5e0!3m2!1suk!2sua!4v1620000000000!5m2!1suk!2sua"
+                allowfullscreen=""
+                loading="lazy">
+            </iframe>
+        </div>
+    </div>
+</div>
+{% endblock %}

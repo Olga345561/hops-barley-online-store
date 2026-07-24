@@ -14,29 +14,29 @@ CATEGORIES = ["Hops", "Malts", "Yeast", "Adjuncts", "Kits"]
 # (name, slug, category, price, stock, description) — опис на окремому рядку,
 # щоб не перевищити ліміт flake8 у 100 символів на довгих назвах.
 PRODUCTS = [
-    ("Citra Hops", "citra-hops", "Hops", "5.99", 25,
+    ("Citra Hops", "citra-hops", "Hops", "5.99", 25, "img/products/citra_hops.jpg",
      "Explosive citrus and tropical aroma, perfect for hazy IPAs."),
-    ("Cascade Hops", "cascade-hops", "Hops", "7.49", 30,
+    ("Cascade Hops", "cascade-hops", "Hops", "7.49", 30, "img/products/cascade_hops.jpg",
      "The classic American aroma hop: floral and grapefruit."),
-    ("Centennial Hops", "centennial-hops", "Hops", "6.49", 18,
+    ("Centennial Hops", "centennial-hops", "Hops", "6.49", 18, "img/products/centennial_hops.jpg",
      "A super-Cascade with intense floral and citrus character."),
-    ("Mosaic Hops", "mosaic-hops", "Hops", "8.99", 12,
+    ("Mosaic Hops", "mosaic-hops", "Hops", "8.99", 12, "img/products/mosaic_hops.jpg",
      "Complex blueberry, mango and pine layers."),
-    ("Saaz Hops", "saaz-hops", "Hops", "5.49", 40,
+    ("Saaz Hops", "saaz-hops", "Hops", "5.49", 40, "img/products/saaz_hops.jpg",
      "Noble Czech hop with a delicate earthy, herbal aroma."),
-    ("Caramel Malt", "caramel-malt", "Malts", "3.99", 50,
+    ("Caramel Malt", "caramel-malt", "Malts", "3.99", 50, "img/products/caramel_malt.jpg",
      "Toffee and caramel sweetness with a rich amber colour."),
-    ("Maris Otter Malt", "maris-otter-malt", "Malts", "4.79", 35,
+    ("Maris Otter Malt", "maris-otter-malt", "Malts", "4.79", 35, "img/products/maris_otter_malt.jpg",
      "The legendary British base malt with a rich biscuit flavour."),
-    ("Pilsner Malt", "pilsner-malt", "Malts", "3.49", 60,
+    ("Pilsner Malt", "pilsner-malt", "Malts", "3.49", 60, "img/products/pilsner_malt.jpg",
      "Pale, clean and crisp continental base malt for lagers."),
-    ("Imperial Yeast", "imperial-yeast", "Yeast", "12.99", 15,
+    ("Imperial Yeast", "imperial-yeast", "Yeast", "12.99", 15, "img/products/imperial_yeast.jpg",
      "Premium liquid yeast with high cell counts for fast starts."),
-    ("Safale US-05 Yeast", "safale-us05-yeast", "Yeast", "4.99", 45,
+    ("Safale US-05 Yeast", "safale-us05-yeast", "Yeast", "4.99", 45, "img/products/safale_us05_yeast.jpg",
      "The workhorse American ale strain: clean and forgiving."),
-    ("Unmalted Wheat", "unmalted-wheat", "Adjuncts", "2.99", 55,
+    ("Unmalted Wheat", "unmalted-wheat", "Adjuncts", "2.99", 55, "img/products/unmalted_wheat.jpg",
      "Raw wheat for witbiers and lambics; adds haze and body."),
-    ("West Coast IPA Kit", "west-coast-ipa-kit", "Kits", "49.99", 8,
+    ("West Coast IPA Kit", "west-coast-ipa-kit", "Kits", "49.99", 8, "img/products/ipa_kit.jpg",
      "Everything for 20 litres of resinous, bitter West Coast IPA."),
 ]
 
@@ -50,7 +50,7 @@ REVIEWS = [
 
 
 class Command(BaseCommand):
-    """Seed the catalog with demo data (safe to re-run)."""
+    """Заповніть каталог демонстраційними даними (безпечно для повторного запуску)."""
 
     help = "Create demo categories, products, users, orders and reviews."
 
@@ -59,12 +59,16 @@ class Command(BaseCommand):
             name: Category.objects.get_or_create(slug=name.lower(), defaults={"name": name})[0]
             for name in CATEGORIES
         }
-        for name, slug, cat, price, stock, description in PRODUCTS:
-            Product.objects.get_or_create(
+        for name, slug, cat, price, stock, image_path, description in PRODUCTS:
+            Product.objects.update_or_create(
                 slug=slug,
                 defaults={
-                    "name": name, "category": categories[cat], "price": Decimal(price),
-                    "stock": stock, "description": description,
+                    "name": name,
+                    "category": categories[cat],
+                    "price": Decimal(price),
+                    "stock": stock,
+                    "description": description,
+                    "image": image_path,
                 },
             )
         users = self._seed_users()

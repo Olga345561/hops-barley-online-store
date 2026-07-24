@@ -8,7 +8,7 @@
         <section class="product-details-section">
             <div class="product-image-container">
                 {% if product.image %}
-                <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image">
+               <img src="{% static product.image %}" alt="{{ product.name }}" class="product-image">
                 {% endif %}
             </div>
             <div class="product-info-column">
