@@ -29,4 +29,4 @@ def contact_view(request):
     )
     return redirect("contact")
 
-  return render(request, "contacts.html")
+  return render(request, "pages/contacts.html")

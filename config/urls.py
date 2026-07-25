@@ -32,9 +32,9 @@ router.register('api/products', ProductViewSet, basename='api-products')
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('products.urls')),
-    path('guides/', TemplateView.as_view(template_name='guides.html'), name='guides'),
     path('', include('users.urls')),
     path('', include('orders.urls')),
+    path('', include('guides_and_recipes.urls')),
     path('', include('contacts.urls')),
     path('api/schema/', SpectacularAPIView.as_view(), name='api-schema'),
     path('api/docs/', SpectacularSwaggerView.as_view(url_name='api-schema'), name='api-docs'),

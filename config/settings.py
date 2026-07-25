@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     "users",
     "products",
     "orders",
+    "guides_and_recipes",
     "contacts"
 ]
 
