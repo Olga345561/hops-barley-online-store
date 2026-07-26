@@ -32,12 +32,13 @@ INSTALLED_APPS = [
     "django_filters",
     'drf_spectacular',
 
-    # Наші застосунки додамо сюди по черзі, коли створимо їх у блоках 4–6:
+    # Наші застосунки:
     "users",
     "products",
     "orders",
     "guides_and_recipes",
     "community",
+    "resources",
     "contacts",
 ]
 

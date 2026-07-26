@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+
+{% block title %}Resources - Hops & Barley{% endblock %}
+
+{% block content %}
+<div class="container resources-page">
+    <h1>Brewing Resources & Tools</h1>
+    <p class="lead">Everything you need to calculate, learn, and brew the best beer at home.</p>
+
+    <!-- Секція калькуляторів -->
+    <section class="resource-section">
+        <h2>Calculators & Tools</h2>
+        <div class="resource-grid">
+            {% for item in calculators %}
+                <div class="resource-card">
+                    <h3>{{ item.title }}</h3>
+                    <p>{{ item.description }}</p>
+                    {% if item.external_url %}
+                        <a href="{{ item.external_url }}" class="btn btn-primary" target="_blank">Open Tool</a>
+                    {% endif %}
+                </div>
+            {% empty %}
+                <p>No calculators available yet.</p>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Секція покрокових керівництв -->
+    <section class="resource-section">
+        <h2>Step-by-Step Guides</h2>
+        <div class="resource-grid">
+            {% for item in guides %}
+                <div class="resource-card">
+                    <h3>{{ item.title }}</h3>
+                    <p>{{ item.description }}</p>
+                    {% if item.content %}
+                        <div class="resource-content">
+                            {{ item.content|safe }}
+                        </div>
+                    {% endif %}
+                    {% if item.file %}
+                        <a href="{{ item.file.url }}" class="btn btn-secondary" download>Download PDF</a>
+                    {% endif %}
+                </div>
+            {% empty %}
+                <p>No guides available yet.</p>
+            {% endfor %}
+        </div>
+    </section>
+
+    <!-- Секція глосарію -->
+    <section class="resource-section">
+        <h2>Glossary of Terms</h2>
+        <dl class="glossary-list">
+            {% for item in glossary %}
+                <dt><strong>{{ item.title }}</strong></dt>
+                <dd>{{ item.description }}</dd>
+            {% empty %}
+                <p>Glossary is empty.</p>
+            {% endfor %}
+        </dl>
+    </section>
+</div>
+{% endblock %}

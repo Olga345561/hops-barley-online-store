@@ -1,0 +1,128 @@
+/* --- Стилі для сторінки Resources --- */
+
+.resources-page {
+    padding: 40px 20px;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.resources-page h1 {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.resources-page .lead {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 40px;
+}
+
+.resource-section {
+    margin-bottom: 50px;
+}
+
+.resource-section h2 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    border-bottom: 2px solid #eaeaea;
+    padding-bottom: 10px;
+    color: #444;
+}
+
+/* Сітка карток для калькуляторів та гідів */
+.resource-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.resource-card {
+    background: #fff;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.resource-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1);
+}
+
+.resource-card h3 {
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+    color: #2c3e50;
+}
+
+.resource-card p {
+    color: #555;
+    font-size: 0.95rem;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+/* Стилі для кнопок у картках */
+.resource-card .btn {
+    display: inline-block;
+    padding: 10px 15px;
+    border-radius: 4px;
+    text-decoration: none;
+    text-align: center;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.resource-card .btn-primary {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.resource-card .btn-primary:hover {
+    background-color: #0056b3;
+}
+
+.resource-card .btn-secondary {
+    background-color: #6c757d;
+    color: #fff;
+}
+
+.resource-card .btn-secondary:hover {
+    background-color: #5a6268;
+}
+
+/* Стилі для глосарію (термін - опис) */
+.glossary-list {
+    background: #f9f9f9;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 20px;
+}
+
+.glossary-list dt {
+    font-size: 1.1rem;
+    color: #2c3e50;
+    margin-top: 15px;
+}
+
+.glossary-list dt:first-child {
+    margin-top: 0;
+}
+
+.glossary-list dd {
+    margin-left: 0;
+    margin-bottom: 15px;
+    color: #555;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed #e0e0e0;
+}
+
+.glossary-list dd:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+}

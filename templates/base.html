@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="{% static 'css/guides.css' %}">
     <link rel="stylesheet" href="{% static 'css/contacts.css' %}">
     <link rel="stylesheet" href="{% static 'css/community.css' %}">
+    <link rel="stylesheet" href="{% static 'css/resources.css' %}">
 </head>
 <body {% if user.is_authenticated %}class="user-logged-in"{% endif %}>
     <header>
@@ -27,7 +28,7 @@
                     <li><a href="{% url 'products:home' %}">Products</a></li>
                     <li><a href="{% url 'guides_and_recipes:recipe_list' %}">Guides & Recipes</a></li>
                     <li><a href="{% url 'community:community_list' %}">Community</a></li>
-                    <li><a href="#">Resources</a></li>
+                    <li><a href="{% url 'resources:resources' %}">Resources</a></li>
                     <li><a href="{% url 'contact' %}">Contact</a></li>
                 </ul>
             </nav>
@@ -68,8 +69,8 @@
                 <li><a href="{% url 'contact' %}">Contact</a></li>
                 <li><a href="#">FAQ</a></li>
                 <li><a href="{% url 'community:community_list' %}">Community</a></li>
-                <li><a href="#">Resources</a></li>
-                <li><a href="#">License</a></li>
+                <li><a href="{% url 'resources:resources' %}">Resources</a></li>
+<!--                <li><a href="#">License</a></li>-->
             </ul>
         </nav>
         <p class="footer__copyright">© Hop & Barley 2025. All rights reserved</p>
