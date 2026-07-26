@@ -7,8 +7,10 @@ of variables. Defaults are suitable for local development.
 import os
 from pathlib import Path
 from datetime import timedelta
+import sys
 
 BASE_DIR = Path(__file__).resolve().parent.parent
+sys.path.append(str(BASE_DIR))
 
 SECRET_KEY = os.environ.get("SECRET_KEY", "django-insecure-dev-only-key")
 DEBUG = os.environ.get("DEBUG", "1") == "1"
@@ -35,7 +37,8 @@ INSTALLED_APPS = [
     "products",
     "orders",
     "guides_and_recipes",
-    "contacts"
+    "community",
+    "contacts",
 ]
 
 MIDDLEWARE = [
