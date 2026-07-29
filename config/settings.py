@@ -114,7 +114,7 @@ USE_TZ = True
 STATIC_URL = "static/"
 STATICFILES_DIRS = [BASE_DIR / "static"]
 STATIC_ROOT = BASE_DIR / "staticfiles"
-IS_TESTING = 'pytest' in sys.argv or 'test' in sys.argv
+IS_TESTING = "pytest" in sys.modules or "test" in sys.argv
 
 STORAGES = {
     "default": {"BACKEND": "django.core.files.storage.FileSystemStorage"},
@@ -126,17 +126,7 @@ STORAGES = {
         )
     },
 }
-# STORAGES = {
-#     "default": {"BACKEND": "django.core.files.storage.FileSystemStorage"},
-#     # The hashed-manifest storage needs `collectstatic`, so it is production-only.
-#     "staticfiles": {
-#         "BACKEND": (
-#             "django.contrib.staticfiles.storage.StaticFilesStorage"
-#             if DEBUG
-#             else "whitenoise.storage.CompressedManifestStaticFilesStorage"
-#         )
-#     },
-# }
+
 MEDIA_URL = "media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
