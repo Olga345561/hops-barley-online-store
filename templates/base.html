@@ -15,6 +15,7 @@
     <link rel="stylesheet" href="{% static 'css/contacts.css' %}">
     <link rel="stylesheet" href="{% static 'css/community.css' %}">
     <link rel="stylesheet" href="{% static 'css/resources.css' %}">
+    <link rel="stylesheet" href="{% static 'css/faq.css' %}">
 </head>
 <body {% if user.is_authenticated %}class="user-logged-in"{% endif %}>
     <header>
@@ -67,10 +68,9 @@
         <nav class="footer__nav">
             <ul>
                 <li><a href="{% url 'contact' %}">Contact</a></li>
-                <li><a href="#">FAQ</a></li>
+                <li><a href="{% url 'faq:faq' %}">FAQ</a></li>
                 <li><a href="{% url 'community:community_list' %}">Community</a></li>
                 <li><a href="{% url 'resources:resources' %}">Resources</a></li>
-<!--                <li><a href="#">License</a></li>-->
             </ul>
         </nav>
         <p class="footer__copyright">© Hop & Barley 2025. All rights reserved</p>

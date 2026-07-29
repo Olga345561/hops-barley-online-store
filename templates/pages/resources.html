@@ -1,4 +1,5 @@
 {% extends 'base.html' %}
+{% load static %}  <!-- Обов'язково підключаємо статику на початку -->
 
 {% block title %}Resources - Hops & Barley{% endblock %}
 
@@ -10,18 +11,27 @@
     <!-- Секція калькуляторів -->
     <section class="resource-section">
         <h2>Calculators & Tools</h2>
-        <div class="resource-grid">
-            {% for item in calculators %}
-                <div class="resource-card">
-                    <h3>{{ item.title }}</h3>
-                    <p>{{ item.description }}</p>
-                    {% if item.external_url %}
-                        <a href="{{ item.external_url }}" class="btn btn-primary" target="_blank">Open Tool</a>
-                    {% endif %}
+        <div class="resource-card calculator-card">
+            <h3>ABV Calculator (Beer strength)</h3>
+            <p>Enter the initial and final density of the wort:</p>
+
+            <div class="calculator-form">
+                <div class="form-group">
+                    <label for="og-input">Initial density (OG):</label>
+                    <input type="number" id="og-input" step="0.001" placeholder="e.g. 1.050" class="form-control">
                 </div>
-            {% empty %}
-                <p>No calculators available yet.</p>
-            {% endfor %}
+
+                <div class="form-group">
+                    <label for="fg-input">Final density (FG):</label>
+                    <input type="number" id="fg-input" step="0.001" placeholder="e.g. 1.010" class="form-control">
+                </div>
+
+                <button type="button" id="calculate-btn" class="btn btn-primary">Calculate ABV</button>
+
+                <div id="calc-result" class="calc-result" style="margin-top: 15px; font-weight: bold; display: none;">
+                   Alcohol obtained: <span id="abv-value"></span>%
+                </div>
+            </div>
         </div>
     </section>
 
@@ -61,4 +71,8 @@
         </dl>
     </section>
 </div>
+
+<!-- Підключення вашого JS-файлу в кінці контенту -->
+<script src="{% static 'js/resources.js' %}"></script>
+
 {% endblock %}

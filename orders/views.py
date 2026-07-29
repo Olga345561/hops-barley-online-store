@@ -102,3 +102,4 @@ def order_success(request: HttpRequest, pk: int) -> HttpResponse:
     """Сторінка подяки після успішного оформлення замовлення."""
     order = get_object_or_404(Order, pk=pk, user=request.user)
     return render(request, "orders/order_success.html", {"order": order})
+

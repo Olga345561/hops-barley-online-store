@@ -21,13 +21,16 @@ from django.conf import settings
 from django.conf.urls.static import static
 from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
 from rest_framework import routers
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
+from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
 
+from orders.api import OrderViewSet
 from products.api import ProductViewSet
 from users.api import RegisterAPIView
 
+
 router = routers.DefaultRouter()
 router.register('api/products', ProductViewSet, basename='api-products')
+router.register('api/orders', OrderViewSet, basename='api-orders')
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -38,12 +41,16 @@ urlpatterns = [
     path('', include('community.urls')),
     path('', include('resources.urls')),
     path('', include('contacts.urls')),
+    path('', include('faq.urls')),
+
     path('api/schema/', SpectacularAPIView.as_view(), name='api-schema'),
     path('api/docs/', SpectacularSwaggerView.as_view(url_name='api-schema'), name='api-docs'),
 
     path('api/users/register/', RegisterAPIView.as_view(), name='api-register'),
     path('api/users/login/', TokenObtainPairView.as_view(), name='api-login'),
     path('api/users/refresh/', TokenRefreshView.as_view(), name='api-refresh'),
+
+
 ]
 
 urlpatterns += router.urls

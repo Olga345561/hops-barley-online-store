@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     "community",
     "resources",
     "contacts",
+    "faq",
 ]
 
 MIDDLEWARE = [
