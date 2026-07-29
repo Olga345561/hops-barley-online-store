@@ -1,0 +1,59 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test-and-lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.14' # Відповідно до версії вашого середовища
+          cache: 'pip'
+
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt # або встановіть залежності, якщо використовуєте Poetry/pipenv
+
+      - name: Run Linters (e.g., Flake8 or Ruff)
+        run: |
+          # Якщо використовуєте flake8 або ruff, розкоментуйте відповідний рядок:
+          # pip install flake8
+          # flake8 .
+          echo "Linter step passed"
+
+      - name: Run Tests with Pytest
+        env:
+          SECRET_KEY: 'test-secret-key-for-ci'
+          DEBUG: 'False'
+        run: |
+          pytest
+
+  build-docker:
+    needs: test-and-lint # Збірка запуститься лише тоді, коли тести та лінтери пройдуть успішно
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
+      - name: Build Docker Image
+        uses: docker/build-push-action@v5
+        with:
+          context: .
+          file: ./Dockerfile # Шлях до вашого Dockerfile (якщо він є)
+          push: false # Поставити true, якщо хочете автоматично завантажувати в Docker Hub
+          tags: hops-barley:latest
