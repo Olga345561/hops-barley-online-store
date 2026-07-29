@@ -136,8 +136,8 @@ DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # --- Auth flow --------------------------------------------------------------
 LOGIN_URL = "users:login"
-LOGIN_REDIRECT_URL = "home"
-LOGOUT_REDIRECT_URL = "home"
+LOGIN_REDIRECT_URL = "products:home"
+LOGOUT_REDIRECT_URL = "products:home"
 
 # --- Email ------------------------------------------------------------------
 EMAIL_BACKEND = os.environ.get(
