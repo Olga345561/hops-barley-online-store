@@ -14,7 +14,7 @@ class TestAuth:
         )
         assert response.status_code == 302
         assert User.objects.filter(email="new@example.com").exists()
-        assert client.get(reverse("home")).context["user"].is_authenticated
+        assert client.get(reverse("products:home")).context["user"].is_authenticated
 
     def test_register_rejects_weak_password(self, client) -> None:
         response = client.post(
@@ -35,4 +35,4 @@ class TestAuth:
         user = User.objects.create_user(email="u@example.com", password="x-pass-123456")
         client.force_login(user)
         client.post(reverse("users:logout"))
-        assert not client.get(reverse("home")).context["user"].is_authenticated
+        assert not client.get(reverse("products:home")).context["user"].is_authenticated

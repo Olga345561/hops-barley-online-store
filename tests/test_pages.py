@@ -4,7 +4,7 @@ from django.urls import reverse
 
 @pytest.mark.django_db
 def test_guides_page_renders_with_base_layout(client) -> None:
-    response = client.get(reverse("guides"))
+    response = client.get(reverse("guides_and_recipes:recipe_list"))
     assert response.status_code == 200
     content = response.content.decode()
     assert "Hop & Barley" in content          # текст логотипу заголовка

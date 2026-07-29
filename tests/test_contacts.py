@@ -17,7 +17,7 @@ class ContactViewTests(TestCase):
     """Тест: сторінка контактів успішно завантажується (статус 200)"""
     response = self.client.get(self.contact_url)
     self.assertEqual(response.status_code, 200)
-    self.assertTemplateUsed(response, "contacts.html")
+    self.assertTemplateUsed(response, "pages/contacts.html")
 
   def test_contact_form_success_guest(self):
     """Тест: успішне відправлення форми незалогіненим користувачем (гостем)"""
