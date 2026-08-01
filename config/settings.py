@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     "resources",
     "contacts",
     "faq",
+    "graphene_django",
 ]
 
 MIDDLEWARE = [
@@ -53,6 +54,10 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
+
+GRAPHENE = {
+    "SCHEMA": "schema.schema"
+}
 
 ROOT_URLCONF = "config.urls"
 

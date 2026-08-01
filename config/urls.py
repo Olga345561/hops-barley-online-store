@@ -26,6 +26,8 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from orders.api import OrderViewSet
 from products.api import ProductViewSet
 from users.api import RegisterAPIView
+from django.views.decorators.csrf import csrf_exempt
+from graphene_django.views import GraphQLView
 
 
 router = routers.DefaultRouter()
@@ -49,7 +51,7 @@ urlpatterns = [
     path('api/users/register/', RegisterAPIView.as_view(), name='api-register'),
     path('api/users/login/', TokenObtainPairView.as_view(), name='api-login'),
     path('api/users/refresh/', TokenRefreshView.as_view(), name='api-refresh'),
-
+    path("graphql/", csrf_exempt(GraphQLView.as_view(graphiql=True))),
 
 ]
 
